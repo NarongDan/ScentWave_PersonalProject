@@ -33,7 +33,7 @@ model Bill {
   userId      Int
   payDate     DateTime?
   payTime     String
-  status      String        @default("PENDING")
+  status      String        @default("PENDING") // PENDING, DELIVERED, CANCELLED
   slipImage   String
   createdAt   DateTime      @default(now()) @db.Timestamp(0)
   updatedAt   DateTime      @updatedAt @db.Timestamp(0)

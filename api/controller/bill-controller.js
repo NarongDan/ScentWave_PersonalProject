@@ -41,4 +41,41 @@ billController.createBill = async (req, res, next) => {
   }
 };
 
+billController.getAllBills = async (req, res, next) => {
+  try {
+    const data = await billService.getAllBills();
+    res.status(200).json({ data });
+  } catch (error) {
+    next(error);
+  }
+};
+
+billController.ChangeBillStatus = async (req, res, next) => {
+  try {
+    const status = req.body.status;
+    const data = await billService.updateBill(+req.params.billId, status);
+    res.status(200).json({ data });
+  } catch (error) {
+    next(error);
+  }
+};
+
+billController.getBillById = async (req, res, next) => {
+  try {
+    const result = await billService.findBillByUserId(+req.params.userId);
+    res.status(200).json({ result });
+  } catch (error) {
+    next(error);
+  }
+};
+
+billController.getBillDetailById = async (req, res, next) => {
+  try {
+    const result = await billService.findBillDetailById(+req.params.userId);
+    res.status(200).json({ result });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = billController;

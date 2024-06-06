@@ -1,4 +1,5 @@
 const cartService = require("../service/cart-service");
+const userService = require("../service/user-service");
 
 const userController = {};
 
@@ -40,4 +41,30 @@ userController.deleteCartItem = async (req, res, next) => {
   }
 };
 
+userController.getUserInfo = async (req, res, next) => {
+  try {
+    const data = req.user;
+    res.status(200).json({ data });
+  } catch (error) {
+    next(error);
+  }
+};
+
+userController.updateUserInfo = async (req, res, next) => {
+  try {
+    const data = {
+      firstName: req.input.firstName,
+      lastName: req.input.lastName,
+      phone: req.input.phone,
+      address: req.input.address,
+    };
+
+    console.log(data);
+
+    const result = await userService.updateUserInfo(+req.user.id, data);
+    res.status(200).json({ result });
+  } catch (error) {
+    next(error);
+  }
+};
 module.exports = userController;

@@ -26,3 +26,10 @@ exports.loginSchema = Joi.object({
   email: Joi.string().required(),
   password: Joi.string().required(),
 });
+
+exports.infoSchema = Joi.object({
+  firstName: Joi.string(),
+  lastName: Joi.string(),
+  phone: Joi.string().pattern(/^[0-9]{10}$/),
+  address: Joi.string(),
+});

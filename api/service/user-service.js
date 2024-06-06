@@ -18,4 +18,12 @@ userService.findUserById = (id) =>
     },
   });
 
+userService.findUserInfo = (id) => prisma.user.findFirst({ where: { id } });
+
+userService.updateUserInfo = (id, data) =>
+  prisma.user.update({
+    data,
+    where: { id },
+  });
+
 module.exports = userService;
