@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "../../../config/axios";
 import { toast } from "react-toastify";
+import { useEffect } from "react";
 
 import Spinner from "../../../components/Spinner";
 
@@ -13,7 +14,13 @@ const initialInput = {
 };
 export default function AddProduct() {
   const [isOpen, setIsOpen] = useState(false);
-  const [input, setInput] = useState(initialInput);
+  const [input, setInput] = useState({
+    productName: "",
+    productCost: "",
+    productPrice: "",
+    productImage: "",
+    productDetail: "",
+  });
   const [loading, setLoading] = useState(false);
 
   const openModal = () => setIsOpen(true);
@@ -35,20 +42,34 @@ export default function AddProduct() {
     try {
       setLoading(true);
       await axios.post("/products", uploadData);
-
       toast.success("Product uploaded successfully");
+      setInput(initialInput);
     } catch (error) {
       console.log(error);
-      toast.error(error.message);
+      toast.error("Please insert all fields of product");
     } finally {
       setLoading(false);
       setIsOpen(false);
     }
   };
-  console.log(input);
+
+  useEffect(() => {
+    const handleKeyPress = (e) => {
+      if (e.keyCode === 27) {
+        closeModal();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyPress);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyPress);
+    };
+  }, []);
+
   return (
     <>
-      <button className="btn btn-active" onClick={openModal}>
+      <button className="btn btn-active text-white" onClick={openModal}>
         <i className="fa fa-plus"></i> Add Product
       </button>
       {loading && <Spinner transparent className="z-50" />}
