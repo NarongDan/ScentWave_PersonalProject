@@ -4,7 +4,7 @@ const multer = require("multer");
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "../api/public/images"); //เลือกlocation ของไฟล์ที่จะเก็บ  ต้องมีโฟลเดอร์นี้อยู่
+    cb(null, "../personal_project/api/public/images"); //เลือกlocation ของไฟล์ที่จะเก็บ  ต้องมีโฟลเดอร์นี้อยู่
   },
   filename: (req, file, cb) => {
     console.log(file);

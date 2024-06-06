@@ -21,7 +21,7 @@ BODY
      -password
      -confirmPassword
 Response
-    200 accessToken (only id)
+    200 isAdmin status, accessToken (only id)
     400 message
     500 message
 
