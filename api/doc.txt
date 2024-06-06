@@ -1,0 +1,166 @@
+-------------- REGISTER ------------
+post / auth/register 
+BODY 
+    -firstName
+    -lastName
+    -password // a-zA-Z0-9/ at least 6 characters
+    -confirmPassword
+    -email
+    -phone // 10 characters
+    -address
+    
+Response
+ 200 message > data
+ 400 message
+ 500 message
+
+--------------- Login --------------
+post auth/login
+BODY
+     -email
+     -password
+     -confirmPassword
+Response
+    200 accessToken (only id)
+    400 message
+    500 message
+
+
+
+
+------------- Admin  ----------------
+
+--- Check product availability
+
+GET /products
+
+    
+BODY
+
+Response
+    200 message / array of products
+    500 message
+
+
+
+----Add products onto web application
+
+POST /products
+HEADER
+    Authorization Bearer accessToken
+    
+BODY 
+    -productName
+    -productCost
+    -productPrice
+    -productImage
+    -productDetail
+
+ 200 message > data
+ 400 message > Please insert all fields of product
+ 500 message
+
+----  Update products on web application
+
+PATCH /products/:productId
+HEADER
+    Authorization Bearer accessToken
+BODY    
+    -productName
+    -productCost
+    -productPrice
+    -productImage
+    -productDetail
+
+200 message > product updated
+500 message
+
+
+------- (soft) Delete products on web application
+
+POST /products/:productId  
+HEADER
+    Authorization Bearer accessToken
+note: soft delete > change status from "use" to "un-use"
+BODY
+
+
+200 message > product deleted
+500 message
+
+
+
+
+
+-------------------------User--------------------
+
+----- Browse products available on website
+GET /products
+    
+BODY
+
+Response
+    200 message / array of products
+    500 message
+
+
+------ Pick up products into cart
+POST /users/myCart
+HEADER
+    Authorization Bearer accessToken
+
+BODY
+    productId    Int
+  userId       Int
+  amount       Int
+  productPrice Int
+
+Response
+    200 message product added into cart
+    500 message
+
+--------Adjust items in cart
+
+PATCH /users/myCart/:cartItemId
+HEADER
+    Authorization Bearer accessToken
+BODY
+   
+  amount    
+
+Response
+    200 message /result
+    500 message
+
+
+--------Delete items in cart
+
+DELETE /users/myCart/:cartItemId
+HEADER
+    Authorization Bearer accessToken
+BODY
+   
+
+Response
+    200 message /"This cart has been removed"
+    500 message
+
+
+----------Make payment by bank transfer
+POST /bills
+HEADER
+    Authorization Bearer accessToken
+BODY
+    userId
+    payDate     DateTime?
+    payTime     String
+    slipImage
+   carts / array of objects of products
+        -  productId    Int 
+        -  productPrice Int
+        -  productCost  Int
+        -  amount       Int
+
+Response
+    200 message /"bill create", bill, billDetail
+    500 message
