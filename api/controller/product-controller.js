@@ -1,5 +1,7 @@
 const productService = require("../service/product-service");
+const uploadService = require("../service/upload-service");
 const { createError } = require("../utils/create-error");
+const fs = require("fs");
 
 const productController = {};
 
@@ -14,20 +16,31 @@ productController.getAllProducts = async (req, res, next) => {
 
 productController.insertProduct = async (req, res, next) => {
   try {
-    if (Object.keys(req.body).length !== 5) {
-      createError("Please insert all fields of product", 400);
-    } // บังคับให้กรอกข้อมูลทุกอย่างเข้ามา
-
+    if (!req.file) {
+      createError("Product image is required", 400);
+    }
     const data = {
       ...req.body,
       productCost: Number(req.body.productCost),
       productPrice: Number(req.body.productPrice),
     };
 
+    if (req.file) {
+      data.productImage = await uploadService.upload(req.file.path);
+    }
+
+    if (Object.keys(data).length !== 5) {
+      createError("Please insert all fields of product", 400);
+    } // บังคับให้กรอกข้อมูลทุกอย่างเข้ามา
+
     await productService.insertProduct(data);
     res.status(201).json({ message: "product inserted" });
   } catch (error) {
     next(error);
+  } finally {
+    if (req.file) {
+      fs.unlinkSync(req.file.path); // ทำการลบรูปภาพ ไม่ว่่าจะอัพรูปหรือไม่
+    }
   }
 };
 
@@ -39,11 +52,19 @@ productController.updateProduct = async (req, res, next) => {
       productPrice: Number(req.body.productPrice),
     };
 
+    if (req.file) {
+      data.productImage = await uploadService.upload(req.file.path);
+    }
+
     await productService.updateProduct(+req.params.productId, data);
 
     res.status(200).json({ message: "product updated" });
   } catch (error) {
     next(error);
+  } finally {
+    if (req.file) {
+      fs.unlinkSync(req.file.path); // ทำการลบรูปภาพ ไม่ว่่าจะอัพรูปหรือไม่
+    }
   }
 };
 

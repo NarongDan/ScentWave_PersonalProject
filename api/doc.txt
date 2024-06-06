@@ -204,9 +204,22 @@ Response
 
 
 -------------Update personal info
-GET /users/info
+PATCH /users/info
 BODY
+    firstName
+    lastName
+    phone
+    address
 
+Response
+    200 message / user
+    500 message
+
+
+-------- Get personal info
+
+PATCH /users/info
+BODY
 
 Response
     200 message / user

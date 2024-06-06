@@ -1,31 +1,46 @@
 const billService = require("../service/bill-service");
-const productService = require("../service/product-service");
+const uploadService = require("../service/upload-service");
+const { createError } = require("../utils/create-error");
+const fs = require("fs");
 
 const billController = {};
 
 billController.createBill = async (req, res, next) => {
   try {
+    if (!req.file) {
+      createError("Slip image is required", 400);
+    }
+
     //      userId      Int
     //   payDate     DateTime?
     //   payTime     String
-
     const dataForBill = {
       userId: +req.user.id,
       payDate: new Date(req.body.payDate),
       payTime: req.body.payTime,
-      slipImage: req.body.slipImage,
+      // slipImage: req.body.slipImage,
     };
 
+    if (req.file) {
+      dataForBill.slipImage = await uploadService.upload(req.file.path);
+    }
+
+    console.log("This is dataForBill", dataForBill);
+
     const bill = await billService.createBill(dataForBill);
+
+    console.log(req.body.carts);
+
     let billDetail = [];
     for (let i = 0; i < req.body.carts.length; i++) {
       const data = {
         billId: bill.id,
-        productId: +req.body.carts[i].productId,
-        productPrice: +req.body.carts[i].productPrice,
-        productCost: +req.body.carts[i].productCost,
-        amount: +req.body.carts[i].amount,
+        productId: Number(req.body.carts[i].productId),
+        productPrice: Number(req.body.carts[i].productPrice),
+        productCost: Number(req.body.carts[i].productCost),
+        amount: Number(req.body.carts[i].amount),
       };
+
       billDetail.push(await billService.createBillDetail(data));
     }
 
@@ -38,6 +53,10 @@ billController.createBill = async (req, res, next) => {
     res.status(201).json({ message: "bill created", bill, billDetail });
   } catch (error) {
     next(error);
+  } finally {
+    if (req.file) {
+      fs.unlinkSync(req.file.path); // ทำการลบรูปภาพ ไม่ว่่าจะอัพรูปหรือไม่
+    }
   }
 };
 
