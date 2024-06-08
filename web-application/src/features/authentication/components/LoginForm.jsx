@@ -77,7 +77,7 @@ export default function LoginForm() {
           error={inputError.password}
         />
         <div className="w-4"></div>
-        <button className="w-full bg-yellow-300 text-black px-3 py-1.5 font-bold rounded-md transition duration-200 ">
+        <button className="w-full bg-yellow-300 text-black px-3 py-1.5 font-bold rounded-md hover:bg-yellow-500  transition-colors duration-300 ">
           Log in
         </button>
 
@@ -85,7 +85,7 @@ export default function LoginForm() {
           <div className="divider">OR</div>
         </div>
         <Link to="/register">
-          <button className="w-full bg-yellow-300 text-black px-3 py-1.5 font-bold rounded-md transition duration-200 hover:bg-yellow-500">
+          <button className="w-full bg-yellow-300 text-black px-3 py-1.5 font-bold rounded-md hover:bg-yellow-500  transition-colors duration-300">
             Sign Up
           </button>
         </Link>

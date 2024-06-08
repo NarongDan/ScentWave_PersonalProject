@@ -138,7 +138,7 @@ export default function RegistrationForm() {
           />
         </div>
         <div className="col-span-2 text-center">
-          <button className="w-full bg-yellow-300 text-black px-3 py-1.5 mt-4 font-bold rounded-md transition duration-200 hover:bg-yellow-500">
+          <button className="w-full bg-yellow-300 text-black px-3 py-1.5 mt-4 font-bold rounded-md hover:bg-yellow-500  transition-colors duration-300">
             Sign Up
           </button>
         </div>

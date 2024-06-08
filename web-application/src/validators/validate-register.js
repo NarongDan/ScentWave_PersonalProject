@@ -16,15 +16,18 @@ const registerSchema = Joi.object({
   //     "alternatives.match": "invalid email address or mobile number",
   //   }),
 
-  email: Joi.string()
-    .email({ tlds: false })
-    .required()
-    .messages({ "string.empty": "invalid email address" }),
+  email: Joi.string().email({ tlds: false }).required().messages({
+    "string.empty": "email address is required",
+    "string.email": "invalid email address",
+  }),
 
   phone: Joi.string()
     .pattern(/^[0-9]{10}$/)
     .required()
-    .messages({ "string.empty": "invalid phone number" }),
+    .messages({
+      "string.empty": "phone number is required",
+      "string.pattern.base": "invalid phone number",
+    }),
 
   address: Joi.string()
     .required()

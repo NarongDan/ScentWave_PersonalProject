@@ -6,12 +6,14 @@ import MainContainer from "../layout/AdminLayout.jsx/MainContainer";
 import ProductManagement from "../features/admin/components/ProductManagement";
 import OrderManagement from "../features/admin/components/OrderManagement";
 import Registration from "../pages/commercial/Registration";
+import HomePageBody from "../features/homepage/HomePageBody";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <HomePage />,
     children: [
+      { path: "", element: <HomePageBody /> },
       { path: "/login", element: <LoginPage /> },
       { path: "/register", element: <Registration /> },
     ],
