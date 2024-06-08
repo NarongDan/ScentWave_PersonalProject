@@ -97,4 +97,14 @@ billController.getBillDetailById = async (req, res, next) => {
   }
 };
 
+billController.getBillDetailByBillId = async (req, res, next) => {
+  try {
+    console.log;
+    const result = await billService.findBillDetailByBillId(+req.params.billId);
+    res.status(200).json({ result });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = billController;

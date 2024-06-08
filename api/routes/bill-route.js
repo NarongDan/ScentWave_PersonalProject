@@ -15,5 +15,6 @@ billRouter.patch("/:billId", billController.ChangeBillStatus);
 
 billRouter.get("/:userId/", billController.getBillById);
 billRouter.get("/:userId/:billId", billController.getBillDetailById);
+billRouter.get("/each/detail/:billId", billController.getBillDetailByBillId);
 
 module.exports = billRouter;

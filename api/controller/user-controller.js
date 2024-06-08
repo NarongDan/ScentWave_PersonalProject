@@ -59,10 +59,18 @@ userController.updateUserInfo = async (req, res, next) => {
       address: req.input.address,
     };
 
-    console.log(data);
-
     const result = await userService.updateUserInfo(+req.user.id, data);
     res.status(200).json({ result });
+  } catch (error) {
+    next(error);
+  }
+};
+
+userController.findUserById = async (req, res, next) => {
+  try {
+    const data = await userService.findUserById(+req.params.userId);
+    delete data.password;
+    res.status(200).json(data);
   } catch (error) {
     next(error);
   }

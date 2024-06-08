@@ -1,3 +1,5 @@
+import HomePageMainContainer from "../../layout/HomePageLayout/HomePageMainContainer";
+
 export default function HomePage() {
-  return <div>Helloo</div>;
+  return <HomePageMainContainer />;
 }

@@ -1,19 +1,29 @@
 import { createBrowserRouter } from "react-router-dom";
-
 import { RouterProvider } from "react-router-dom";
 import HomePage from "../pages/commercial/HomePage";
 import LoginPage from "../pages/commercial/LoginPage";
-import AdminPage from "../pages/admin/AdminPage";
+import MainContainer from "../layout/AdminLayout.jsx/MainContainer";
+import ProductManagement from "../features/admin/components/ProductManagement";
+import OrderManagement from "../features/admin/components/OrderManagement";
+import Registration from "../pages/commercial/Registration";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <HomePage />,
+    children: [
+      { path: "/login", element: <LoginPage /> },
+      { path: "/register", element: <Registration /> },
+    ],
   },
-  { path: "/login", element: <LoginPage /> },
+
   {
     path: "/admin",
-    element: <AdminPage />,
+    element: <MainContainer />,
+    children: [
+      { path: "", element: <ProductManagement /> },
+      { path: "order-management", element: <OrderManagement /> },
+    ],
   },
 ]);
 

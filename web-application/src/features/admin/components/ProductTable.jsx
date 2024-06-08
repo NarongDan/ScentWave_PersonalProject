@@ -106,6 +106,7 @@ export default function ProductTable() {
       });
 
       if (button.isConfirmed) {
+        setLoading(true);
         const res = await axios.delete(`/products/${id}`);
 
         if (res.data.message === "product deleted") {
@@ -125,6 +126,8 @@ export default function ProductTable() {
         text: error.message,
         icon: "error",
       });
+    } finally {
+      setLoading(false);
     }
   };
 

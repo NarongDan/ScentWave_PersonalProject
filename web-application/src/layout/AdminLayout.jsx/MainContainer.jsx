@@ -1,6 +1,8 @@
-import Board from "./Board";
+// import Board from "./Board";
+
 import Navbar from "./Navbar";
 import Sidebar from "./Sidebar";
+import Board from "./Board";
 
 export default function MainContainer() {
   return (

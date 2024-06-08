@@ -26,9 +26,23 @@ billService.findBillByUserId = (id) =>
     where: { userId: id },
     include: { BillDetails: true },
   });
-module.exports = billService;
 
 billService.findBillDetailById = (id) =>
   prisma.billDetails.findMany({
     where: { id },
   });
+
+billService.findBillDetailByBillId = (id) =>
+  prisma.billDetails.findMany({
+    where: {
+      billId: id,
+    },
+    include: {
+      product: {
+        select: {
+          productName: true,
+        },
+      },
+    },
+  });
+module.exports = billService;

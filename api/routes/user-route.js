@@ -9,8 +9,10 @@ userRouter.patch("/myCart/:cartItemId", userController.adjustItemNumber);
 
 userRouter.delete("/myCart/:cartItemId", userController.deleteCartItem);
 
-userRouter.get("/info", userController.getUserInfo);
+userRouter.get("/info", userController.getUserInfo); // ตาม token ที่ล็อคอิน
 
 userRouter.patch("/info", validator.updateUser, userController.updateUserInfo);
+
+userRouter.get("/info/:userId", userController.findUserById); // ตามการค้นหาให้ admin
 
 module.exports = userRouter;
