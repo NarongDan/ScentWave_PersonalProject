@@ -2,7 +2,7 @@ import { useEffect, useReducer } from "react";
 import { createContext, useState } from "react";
 import CartReducer from "./cartReducer";
 import cartApi from "../../../apis/cart";
-import useAuth from "../../../hooks/useAuth";
+import { getAccessToken } from "../../../utils/local-storage";
 
 export const CartContext = createContext();
 
@@ -16,7 +16,9 @@ export const CartContext = createContext();
 export default function CartContextProvider({ children }) {
   const [cart, dispatch] = useReducer(CartReducer, []);
 
-  console.log(cart);
+  const [authorized, setAuthorized] = useState(false);
+
+  console.log("check authorized", authorized);
 
   const getAllProductsinCart = async () => {
     try {
@@ -27,6 +29,18 @@ export default function CartContextProvider({ children }) {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    // ป้องกัน infinite loop ในกรณีที่หาtoken ไม่เจอ
+    if (authorized) {
+      getAllProductsinCart();
+    }
+  }, [authorized]); //
+
+  useEffect(() => {
+    const token = getAccessToken();
+    setAuthorized(!!token); // Set authorized to true if token exists, false otherwise
+  }, []);
 
   const handleQuantity = async (data) => {
     try {
@@ -45,10 +59,6 @@ export default function CartContextProvider({ children }) {
       console.log(error);
     }
   };
-
-  useEffect(() => {
-    getAllProductsinCart();
-  }, []);
 
   return (
     <CartContext.Provider

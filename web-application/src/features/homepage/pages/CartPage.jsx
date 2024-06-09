@@ -1,4 +1,3 @@
-import cartApi from "../../../apis/cart";
 import useCart from "../../../hooks/useCart";
 import OrderSummary from "../components/OrderSummary";
 import ShoppingBag from "../components/ShoppingBag";
