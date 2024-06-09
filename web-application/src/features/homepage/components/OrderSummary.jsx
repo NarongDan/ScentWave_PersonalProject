@@ -1,9 +1,15 @@
+import { useNavigate } from "react-router-dom";
+
 export default function OrderSummary({ cart }) {
   const total = cart.reduce((acc, item) => {
     return (acc += item.amount * item.productPrice);
   }, 0);
 
-  console.log(total);
+  const navigate = useNavigate();
+
+  const handleProcessToCheckout = () => {
+    navigate("/billing");
+  };
 
   return (
     <div className="bg-white pt-5 px-10 py-5 space-y-5 border border-gray-300 w-full md:w-1/2 rounded-lg shadow-lg">
@@ -24,8 +30,11 @@ export default function OrderSummary({ cart }) {
         <p>Total Payment</p>
         <p>{total}</p>
       </div>
-      <button className="bg-yellow-400 text-white text-lg font-semibold py-2 px-4 rounded-lg w-full hover:bg-yellow-600">
-        Checkout
+      <button
+        className="bg-yellow-400 text-white text-lg font-semibold py-2 px-4 rounded-lg w-full hover:bg-yellow-600"
+        onClick={handleProcessToCheckout}
+      >
+        Proceed to checkout
       </button>
     </div>
   );

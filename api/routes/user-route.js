@@ -7,6 +7,8 @@ userRouter.get("/myCart", userController.getProductInCart);
 
 userRouter.post("/myCart", userController.addProductIntoCart);
 
+userRouter.delete("/myCart/delete/:userId", userController.deleteCart);
+
 userRouter.patch("/myCart/:cartItemId", userController.adjustItemNumber);
 
 userRouter.delete("/myCart/:cartItemId", userController.deleteCartItem);

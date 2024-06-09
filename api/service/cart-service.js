@@ -30,4 +30,7 @@ cartService.adjustProductNumber = (id, number) =>
 
 cartService.removeCartItem = (id) => prisma.cartitems.delete({ where: { id } });
 
+cartService.deleteCart = (id) =>
+  prisma.cartitems.deleteMany({ where: { userId: id } });
+
 module.exports = cartService;

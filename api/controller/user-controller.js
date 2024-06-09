@@ -56,6 +56,16 @@ userController.addProductIntoCart = async (req, res, next) => {
   }
 };
 
+userController.deleteCart = async (req, res, next) => {
+  try {
+    await cartService.deleteCart(+req.params.userId);
+
+    res.status(200).json({ message: "cart is empty" });
+  } catch (error) {
+    next(error);
+  }
+};
+
 userController.adjustItemNumber = async (req, res, next) => {
   try {
     const result = await cartService.adjustProductNumber(

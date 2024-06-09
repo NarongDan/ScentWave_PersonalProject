@@ -25,7 +25,7 @@ billController.createBill = async (req, res, next) => {
       dataForBill.slipImage = await uploadService.upload(req.file.path);
     }
 
-    console.log("This is dataForBill", dataForBill);
+    console.log("This is data of carts", req.body.carts);
 
     const bill = await billService.createBill(dataForBill);
 
@@ -34,7 +34,7 @@ billController.createBill = async (req, res, next) => {
     let billDetail = [];
     for (let i = 0; i < req.body.carts.length; i++) {
       const data = {
-        billId: bill.id,
+        billId: +bill.id,
         productId: Number(req.body.carts[i].productId),
         productPrice: Number(req.body.carts[i].productPrice),
         productCost: Number(req.body.carts[i].productCost),
