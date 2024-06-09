@@ -4,9 +4,9 @@ const { createError } = require("../utils/create-error");
 
 exports.authenticate = async (req, res, next) => {
   try {
-    console.log(req.headers.authorization);
-
     const authorization = req.headers.authorization;
+
+    console.log("This issss", authorization);
 
     if (!authorization || !authorization.startsWith("Bearer ")) {
       createError("unauthenticated", 401);

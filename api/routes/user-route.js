@@ -3,6 +3,8 @@ const validator = require("../middlewares/validator");
 
 const userRouter = require("express").Router();
 
+userRouter.get("/myCart", userController.getProductInCart);
+
 userRouter.post("/myCart", userController.addProductIntoCart);
 
 userRouter.patch("/myCart/:cartItemId", userController.adjustItemNumber);

@@ -1,6 +1,6 @@
-import useCommercial from "../../hooks/useCommercial";
-import BannerSlide from "./components/BannerSlide";
-import ProductCard from "./components/ProductCard";
+import BannerSlide from "../components/BannerSlide";
+import ProductCard from "../components/ProductCard";
+import useCommercial from "../../../hooks/useCommercial";
 
 export default function HomePageBody() {
   const { products } = useCommercial();

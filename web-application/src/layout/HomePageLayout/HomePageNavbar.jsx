@@ -20,10 +20,14 @@ export default function HomePageNavbar() {
             ABOUT SCENTWAVE
           </Link>
         </div>
+
         <div className="flex space-x-4">
-          <div className="w-10 h-10 flex items-center justify-center m-2 p-2 rounded-full hover:bg-gray-300 cursor-pointer transition duration-200">
-            <IoCartOutline className="text-gray-700" size={20} />
-          </div>
+          <Link to="cart">
+            <div className="w-10 h-10 flex items-center justify-center m-2 p-2 rounded-full hover:bg-gray-300 cursor-pointer transition duration-200">
+              <IoCartOutline className="text-gray-700" size={20} />
+            </div>
+          </Link>
+
           <Link to="login">
             <div className="w-10 h-10 flex items-center justify-center m-2 p-2 rounded-full hover:bg-gray-300 cursor-pointer transition duration-200">
               <FaUserTie className="text-gray-700" size={20} />
