@@ -26,6 +26,10 @@ userController.addProductIntoCart = async (req, res, next) => {
     const existProduct = await cartService.getProductInCart(data.userId);
 
     let result;
+    //if customer has does have product list at all
+    if (!existProduct) result = await cartService.addProductIntoCart(data);
+
+    // if customers has already had product list
     if (existProduct) {
       // Find the specific product by productId
       const productToAdjust = existProduct.find(
@@ -38,13 +42,12 @@ userController.addProductIntoCart = async (req, res, next) => {
           productToAdjust.id,
           productToAdjust.amount + data.amount
         );
+        // if amount is equal to or less than 0, delete it
+        if (result.amount <= 0) await cartService.removeCartItem(result.id);
       } else {
         // Add the product to the cart if it doesn't exist
-        const result = await cartService.addProductIntoCart(data);
+        result = await cartService.addProductIntoCart(data);
       }
-    } else {
-      // Add the product to the cart if no products exist
-      result = await cartService.addProductIntoCart(data);
     }
 
     res.status(200).json({ result });

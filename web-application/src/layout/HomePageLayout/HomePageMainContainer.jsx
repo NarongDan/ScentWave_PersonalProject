@@ -4,7 +4,7 @@ import HomePageFooter from "./HomePageFooter";
 
 export default function HomePageMainContainer() {
   return (
-    <div className="w-screen h-[100%] flex flex-col bg-gray-100">
+    <div className="w-full h-[100%] flex flex-col bg-gray-100">
       <HomePageNavbar />
 
       <main className="bg-gray-100 flex flex-col w-full h-full ">

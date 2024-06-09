@@ -6,8 +6,8 @@ export default function HomePageBody() {
   const { products } = useCommercial();
   return (
     <>
-      <div>
-        <BannerSlide className=" w-[100%]" />
+      <div className="flex items-center justify-center w-full">
+        <BannerSlide className="" />
       </div>
       <div className="h-[100px] w-full flex flex-col justify-center items-center space-y-10 mt-10 px-2 text-center">
         <p className="text-2xl text-gray-500">Welcome to our store!</p>
