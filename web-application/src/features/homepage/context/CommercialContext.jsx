@@ -7,8 +7,6 @@ export const CommercialContext = createContext();
 export default function CommercialContextProvider({ children }) {
   const [products, setProducts] = useState([]);
 
-  console.log(products);
-
   const fetchProducts = async () => {
     try {
       const res = await productApi.getAllProducts();

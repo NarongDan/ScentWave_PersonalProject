@@ -1,5 +1,7 @@
 const cartService = require("../service/cart-service");
+const hashService = require("../service/hash-service");
 const userService = require("../service/user-service");
+const { createError } = require("../utils/create-error");
 
 const userController = {};
 
@@ -100,12 +102,24 @@ userController.getUserInfo = async (req, res, next) => {
 
 userController.updateUserInfo = async (req, res, next) => {
   try {
-    const data = {
-      firstName: req.input.firstName,
-      lastName: req.input.lastName,
-      phone: req.input.phone,
-      address: req.input.address,
-    };
+    const data = req.input;
+
+    const existUser = await userService.findUserByEmail(req.user.email);
+
+    if (!existUser) {
+      createError("Invalid credentials", 400);
+    }
+
+    const isMatch = await hashService.compare(
+      data.password,
+      existUser.password
+    );
+
+    if (!isMatch) {
+      createError("invalid credentials", 400, "password");
+    }
+
+    delete data.password; // ต้องลบออก ไม่งั้นจะเปลี่ยนดาต้าเบสไปด้วย
 
     const result = await userService.updateUserInfo(+req.user.id, data);
     res.status(200).json({ result });

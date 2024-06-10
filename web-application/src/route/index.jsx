@@ -9,6 +9,7 @@ import Registration from "../pages/commercial/Registration";
 import HomePageBody from "../features/homepage/pages/HomePageBody";
 import CartPage from "../features/homepage/pages/CartPage";
 import CheckoutPage from "../features/homepage/pages/CheckoutPage";
+import ProfilePage from "../pages/commercial/ProfilePage";
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,7 @@ const router = createBrowserRouter([
       { path: "/billing", element: <CheckoutPage /> },
       { path: "/login", element: <LoginPage /> },
       { path: "/register", element: <Registration /> },
+      { path: "/profile", element: <ProfilePage /> },
     ],
   },
 

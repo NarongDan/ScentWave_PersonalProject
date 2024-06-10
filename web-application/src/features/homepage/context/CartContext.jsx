@@ -18,8 +18,6 @@ export default function CartContextProvider({ children }) {
 
   const [authorized, setAuthorized] = useState(false);
 
-  console.log("check authorized", authorized);
-
   const getAllProductsinCart = async () => {
     try {
       const res = await cartApi.getAllProductsInCart();

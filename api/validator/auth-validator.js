@@ -32,4 +32,6 @@ exports.infoSchema = Joi.object({
   lastName: Joi.string(),
   phone: Joi.string().pattern(/^[0-9]{10}$/),
   address: Joi.string(),
+  password: Joi.string().required(),
+  confirmPassword: Joi.string().required().valid(Joi.ref("password")).strip(),
 });

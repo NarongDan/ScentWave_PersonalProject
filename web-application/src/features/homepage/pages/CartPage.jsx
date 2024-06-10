@@ -4,7 +4,7 @@ import ShoppingBag from "../components/ShoppingBag";
 
 export default function CartPage() {
   const { cart, handleQuantity, handleRemoveItem } = useCart();
-  console.log("This is cart", cart);
+
   return (
     <div className="w-full min-h-[40em] py-10 px-5 flex flex-col  bg-gray-50">
       <div className="text-center text-3xl font-bold text-black mb-10">

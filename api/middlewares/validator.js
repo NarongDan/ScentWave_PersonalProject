@@ -32,11 +32,13 @@ validator.login = (req, res, next) => {
 // }
 
 validator.updateUser = (req, res, next) => {
+  console.log(req.body);
   const { value, error } = infoSchema.validate(req.body);
   if (error) {
     createError(error.details[0].message, 400);
   }
   req.input = value;
+
   next();
 };
 
