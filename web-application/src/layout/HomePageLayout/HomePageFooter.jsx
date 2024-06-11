@@ -31,7 +31,7 @@ export default function HomePageFooter() {
         <p className="font-semibold">Follow Us</p>
         <div className="flex space-x-4">
           <a
-            href="#"
+            href="https://www.facebook.com"
             aria-label="Facebook"
             className="text-white hover:text-gray-400"
           >
@@ -45,7 +45,7 @@ export default function HomePageFooter() {
             </svg>
           </a>
           <a
-            href="#"
+            href="https://www.instagram.com"
             aria-label="Instagram"
             className="text-white hover:text-gray-400"
           >
@@ -59,7 +59,7 @@ export default function HomePageFooter() {
             </svg>
           </a>
           <a
-            href="#"
+            href="https://www.twitter.com"
             aria-label="Twitter"
             className="text-white hover:text-gray-400"
           >

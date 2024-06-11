@@ -3,6 +3,7 @@ import axios from "../../../config/axios";
 import Modal from "../../../components/Modal";
 import Swal from "sweetalert2";
 import Spinner from "../../../components/Spinner";
+import billApi from "../../../apis/bills";
 
 export default function OrderManagement() {
   const [isOpen, setIsOpen] = useState(false);
@@ -43,7 +44,7 @@ export default function OrderManagement() {
 
   const fetchBillDetail = async (billId) => {
     try {
-      const res = await axios.get(`/bills/each/detail/${billId}`);
+      const res = await billApi.getBillDetailByBillId(billId);
       setBillDetail(res.data.result);
       // คำนวณยอดรวมของสินค้าในแต่ละบิล
       const total = res.data.result.reduce(
@@ -52,7 +53,7 @@ export default function OrderManagement() {
       );
       setBillSaleTotal(total);
     } catch (error) {
-      error;
+      console.log(error);
     }
   };
 

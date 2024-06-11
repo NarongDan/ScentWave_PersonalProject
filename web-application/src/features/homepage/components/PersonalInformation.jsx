@@ -63,7 +63,7 @@ export default function PersonalInformation() {
 
   return (
     <div className="w-3/4 p-4">
-      <h2 className="text-xl text-black font-bold mb-6">My Details</h2>
+      <h2 className="text-3xl text-black font-bold mb-6">My Details</h2>
       <form className="space-y-4" onSubmit={handleSubmitUpdate}>
         <div className="md:flex md:space-x-4 space-y-4 md:space-y-0">
           <div className="md:w-1/2 w-full">

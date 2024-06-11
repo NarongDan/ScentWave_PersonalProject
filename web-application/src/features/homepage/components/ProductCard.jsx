@@ -5,6 +5,40 @@ export default function ProductCard({ product }) {
   const { handleQuantity } = useCart();
   const { authUser } = useAuth();
 
+  const handleAddToCart = () => {
+    if (authUser) {
+      // User is logged in, use handleQuantity function
+      handleQuantity({
+        userId: authUser?.id,
+        productId: product?.id,
+        amount: 1,
+        productPrice: product.productPrice,
+        productDetail: product.productDetail,
+      });
+    } else {
+      // User is a guest, use local storage
+      const cart = JSON.parse(localStorage.getItem("guestCart")) || [];
+      const existingProductIndex = cart.findIndex(
+        (item) => item.productId === product.id
+      );
+
+      if (existingProductIndex > -1) {
+        cart[existingProductIndex].amount += 1;
+      } else {
+        cart.push({
+          productId: product.id,
+          amount: 1,
+          productPrice: product.productPrice,
+          productName: product.productName,
+          productImage: product.productImage,
+          productDetail: product.productDetail,
+        });
+      }
+
+      localStorage.setItem("guestCart", JSON.stringify(cart));
+    }
+  };
+
   return (
     <div className="flex flex-col items-center  w-[250px] h-[350px]  bg-white rounded-md shadow-md transition-transform duration-300 ease-in-out transform hover:scale-105">
       <img
@@ -27,15 +61,8 @@ export default function ProductCard({ product }) {
         </div>
       </div>
       <button
-        className="bg-gray-400 text-white px-4 py-2 rounded-md hover:bg-yellow-500  transition-colors duration-300"
-        onClick={() =>
-          handleQuantity({
-            userId: authUser?.id,
-            productId: product?.id,
-            amount: 1,
-            productPrice: product.productPrice,
-          })
-        }
+        className="bg-yellow-400 text-white px-4 py-2 rounded-md hover:bg-yellow-600  transition-colors duration-300"
+        onClick={handleAddToCart}
       >
         Add to Cart
       </button>

@@ -26,7 +26,7 @@ axios.interceptors.response.use(
   (err) => {
     if (err.response.status === 401) {
       removeAccessToken();
-      window.location.assign("/login"); // ทำการ refresh page แล้ว redirect ไปที่ path นี้
+      // window.location.assign("/login"); // ทำการ refresh page แล้ว redirect ไปที่ path นี้
       return;
     }
     return Promise.reject(err);

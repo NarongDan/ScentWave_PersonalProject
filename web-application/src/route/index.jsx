@@ -10,6 +10,11 @@ import HomePageBody from "../features/homepage/pages/HomePageBody";
 import CartPage from "../features/homepage/pages/CartPage";
 import CheckoutPage from "../features/homepage/pages/CheckoutPage";
 import ProfilePage from "../pages/commercial/ProfilePage";
+import PersonalInformation from "../features/homepage/components/PersonalInformation";
+import OrderHistory from "../features/homepage/components/OrderHistory";
+import ProtectProfileRoute from "../features/authentication/components/ProtectProfileRoute";
+import ProtectRoute from "../features/authentication/components/ProtectRoute";
+import ProductPage from "../features/homepage/pages/ProductPage";
 
 const router = createBrowserRouter([
   {
@@ -19,15 +24,45 @@ const router = createBrowserRouter([
       { path: "", element: <HomePageBody /> },
       { path: "/cart", element: <CartPage /> },
       { path: "/billing", element: <CheckoutPage /> },
-      { path: "/login", element: <LoginPage /> },
-      { path: "/register", element: <Registration /> },
-      { path: "/profile", element: <ProfilePage /> },
+      { path: "/products", element: <ProductPage /> },
+      {
+        path: "/login",
+        element: (
+          <ProtectProfileRoute>
+            <LoginPage />
+          </ProtectProfileRoute>
+        ),
+      },
+      {
+        path: "/register",
+        element: (
+          <ProtectRoute>
+            <Registration />
+          </ProtectRoute>
+        ),
+      },
+      {
+        path: "/profile",
+        element: (
+          <ProtectRoute>
+            <ProfilePage />
+          </ProtectRoute>
+        ),
+        children: [
+          { path: "", element: <PersonalInformation /> },
+          { path: "history", element: <OrderHistory /> },
+        ],
+      },
     ],
   },
 
   {
     path: "/admin",
-    element: <MainContainer />,
+    element: (
+      <ProtectRoute>
+        <MainContainer />
+      </ProtectRoute>
+    ),
     children: [
       { path: "", element: <ProductManagement /> },
       { path: "order-management", element: <OrderManagement /> },

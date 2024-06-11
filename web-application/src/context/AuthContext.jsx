@@ -7,6 +7,7 @@ import {
   getAccessToken,
 } from "../utils/local-storage";
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 export const AuthContext = createContext();
 
@@ -47,10 +48,13 @@ export default function AuthContextProvider({ children }) {
   const logout = () => {
     removeAccessToken();
     setAuthUser(null);
+    toast.warning("logout already");
   };
 
   return (
-    <AuthContext.Provider value={{ login, logout, authUser }}>
+    <AuthContext.Provider
+      value={{ login, logout, authUser, isAuthUserLoading }}
+    >
       {children}
     </AuthContext.Provider>
   );

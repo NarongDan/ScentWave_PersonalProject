@@ -10,14 +10,14 @@ export default function HomePageNavbar() {
           <div className="text-xl font-bold">ScentWave</div>
         </Link>
         <div className="flex space-x-4">
-          <Link to="#" className="text-gray-500 hover:text-gray-700">
-            TEATURED
-          </Link>
-          <Link to="#" className="text-gray-500 hover:text-gray-700">
-            FRAGRANCES
+          <Link to="/products" className="text-gray-500 hover:text-gray-700">
+            PRODUCTS
           </Link>
           <Link to="#" className="text-gray-500 hover:text-gray-700">
             ABOUT SCENTWAVE
+          </Link>
+          <Link to="#" className="text-gray-500 hover:text-gray-700">
+            CONTACT US
           </Link>
         </div>
 

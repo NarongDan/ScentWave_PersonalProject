@@ -7,7 +7,7 @@ export default function HomePageMainContainer() {
     <div className="w-full h-[100%] flex flex-col bg-gray-100">
       <HomePageNavbar />
 
-      <main className="bg-gray-100 flex flex-col w-full h-full ">
+      <main className="bg-white flex flex-col w-full h-full ">
         <Outlet />
       </main>
 

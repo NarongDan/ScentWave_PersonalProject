@@ -10,7 +10,7 @@ export default function BannerSlide({ className }) {
   return (
     <>
       <Carousel
-        className="w-[80%] "
+        className="w-[100%] "
         showArrows={true}
         autoPlay={true}
         infiniteLoop={true}
