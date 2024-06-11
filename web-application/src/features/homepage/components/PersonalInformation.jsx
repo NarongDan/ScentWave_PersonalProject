@@ -1,7 +1,7 @@
 import Input from "../../../components/Input";
 import Textarea from "../../../components/Textarea";
 import useAuth from "../../../hooks/useAuth";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import validateUpdate from "../../../validators/validate-update";
 import authApi from "../../../apis/auth";
 import { toast } from "react-toastify";
@@ -26,12 +26,11 @@ const initialInputError = {
 };
 
 export default function PersonalInformation() {
-  const { authUser } = useAuth();
+  const { authUser, fetchUser } = useAuth();
 
   const [input, setInput] = useState({});
   const [inputError, setInputError] = useState(initialInputError);
   const [isEditing, setIsEditing] = useState(false);
-  console.log(input);
 
   const handleChangeInput = (e) =>
     setInput({ ...input, [e.target.name]: e.target.value });
@@ -47,6 +46,7 @@ export default function PersonalInformation() {
 
       await authApi.updateUserInfo(input);
       setInput({});
+      fetchUser();
       toast.success("updated successfully");
       setIsEditing(false); // ปิดโหมดการแก้ไขเมื่อกด Save
     } catch (error) {

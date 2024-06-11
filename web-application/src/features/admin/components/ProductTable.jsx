@@ -17,19 +17,14 @@ export default function ProductTable() {
   const [products, setProducts] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [input, setInput] = useState({
-    productName: "",
-    productCost: "",
-    productPrice: "",
-    productImage: "",
-    productDetail: "",
-  });
-
-  console.log(product);
+  const [input, setInput] = useState(initialInput);
+  const [currentPage, setCurrentPage] = useState(1); // เพิ่มสถานะสำหรับหน้า
+  const itemsPerPage = 20; // จำนวนรายการต่อหน้า
 
   useEffect(() => {
     fetchData();
   }, []);
+
   useEffect(() => {
     const handleKeyPress = (e) => {
       if (e.keyCode === 27) {
@@ -45,7 +40,10 @@ export default function ProductTable() {
   }, []);
 
   const openModal = () => setIsOpen(true);
-  const closeModal = () => setIsOpen(false);
+  const closeModal = () => {
+    setInput(initialInput);
+    setIsOpen(false);
+  };
   const handleChange = (e) => {
     e.preventDefault();
     setInput((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -60,18 +58,16 @@ export default function ProductTable() {
     uploadData.append("productImage", input.productImage);
     uploadData.append("productDetail", input.productDetail);
     try {
+      setLoading(true);
       if (product.id === undefined) {
-        setLoading(true);
         await axios.post("/products", uploadData);
         toast.success("Product uploaded successfully");
-        setInput(initialInput);
       } else {
-        setLoading(true);
         await axios.patch(`/products/${product.id}`, uploadData);
         toast.success("Product updated successfully");
       }
 
-      setProduct({ ...product, id: undefined }); // clear id
+      setProduct({}); // clear id
       setInput(initialInput);
       fetchData();
     } catch (error) {
@@ -86,7 +82,6 @@ export default function ProductTable() {
   const fetchData = async () => {
     try {
       const res = await axios.get("/products");
-
       if (res.data !== undefined) {
         setProducts(res.data);
       }
@@ -98,8 +93,8 @@ export default function ProductTable() {
   const handleRemove = async (id) => {
     try {
       const button = await Swal.fire({
-        text: "remove item",
-        title: "remove",
+        text: "Remove item",
+        title: "Remove",
         icon: "question",
         showCancelButton: true,
         showConfirmButton: true,
@@ -111,8 +106,8 @@ export default function ProductTable() {
 
         if (res.data.message === "product deleted") {
           Swal.fire({
-            title: "remove",
-            text: "remove success",
+            title: "Remove",
+            text: "Remove success",
             icon: "success",
             timer: 1000,
           });
@@ -122,7 +117,7 @@ export default function ProductTable() {
       }
     } catch (error) {
       Swal.fire({
-        title: "error",
+        title: "Error",
         text: error.message,
         icon: "error",
       });
@@ -131,9 +126,17 @@ export default function ProductTable() {
     }
   };
 
+  // คำนวณรายการที่จะแสดงในหน้าปัจจุบัน
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentProducts = products.slice(indexOfFirstItem, indexOfLastItem);
+
+  // จำนวนหน้าทั้งหมด
+  const totalPages = Math.ceil(products.length / itemsPerPage);
+
   return (
     <>
-      <button className="btn btn-active text-white" onClick={openModal}>
+      <button className="btn btn-active  text-white" onClick={openModal}>
         <i className="fa fa-plus"></i> Add Product
       </button>
       {loading && <Spinner transparent className="z-50" />}
@@ -141,7 +144,6 @@ export default function ProductTable() {
         <div className="modal modal-open z-40">
           <div className="modal-box">
             <h2 className="font-bold text-xl text-center">Add product</h2>
-
             <form
               className="p-4 flex flex-col space-y-5"
               onSubmit={handleUpdate}
@@ -224,8 +226,8 @@ export default function ProductTable() {
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
-            {products.length > 0 ? (
-              products.map((item, index) => (
+            {currentProducts.length > 0 ? (
+              currentProducts.map((item, index) => (
                 <tr
                   key={item.id}
                   className={index % 2 === 0 ? "bg-gray-100" : "bg-white"}
@@ -283,6 +285,37 @@ export default function ProductTable() {
             )}
           </tbody>
         </table>
+      </div>
+      <div className="flex justify-center space-x-2 mt-4">
+        <button
+          onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+          className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400"
+          disabled={currentPage === 1}
+        >
+          Previous
+        </button>
+        {[...Array(totalPages).keys()].map((number) => (
+          <button
+            key={number}
+            onClick={() => setCurrentPage(number + 1)}
+            className={`px-4 py-2 rounded ${
+              currentPage === number + 1
+                ? "bg-blue-500 text-white"
+                : "bg-gray-300 hover:bg-gray-400"
+            }`}
+          >
+            {number + 1}
+          </button>
+        ))}
+        <button
+          onClick={() =>
+            setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+          }
+          className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400"
+          disabled={currentPage === totalPages}
+        >
+          Next
+        </button>
       </div>
     </>
   );

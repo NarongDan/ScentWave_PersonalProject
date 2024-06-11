@@ -6,7 +6,7 @@ import Board from "./Board";
 
 export default function MainContainer() {
   return (
-    <div className="flex">
+    <div className="flex ">
       <Sidebar />
       <div className="flex flex-col w-[calc(100%-300px)]">
         <Navbar />

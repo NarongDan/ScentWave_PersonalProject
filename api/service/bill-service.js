@@ -25,6 +25,7 @@ billService.findBillByUserId = (id) =>
   prisma.bill.findMany({
     where: { userId: id },
     include: { BillDetails: true },
+    orderBy: { id: "desc" },
   });
 
 billService.findBillDetailById = (id) =>

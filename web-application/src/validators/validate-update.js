@@ -10,8 +10,7 @@ const updateSchema = Joi.object({
       "string.pattern.base": "invalid phone number",
     }),
   address: Joi.string()
-    .required()
-    .messages({ "string.empty": "address is required" }),
+  .messages({ "string.empty": "address is required" }),
 
   password: Joi.string()
     .required()

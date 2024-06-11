@@ -40,7 +40,7 @@ export default function ProductCard({ product }) {
   };
 
   return (
-    <div className="flex flex-col items-center  w-[250px] h-[350px]  bg-white rounded-md shadow-md transition-transform duration-300 ease-in-out transform hover:scale-105">
+    <div className="flex flex-col p-2 items-center  w-[250px] h-[350px]  bg-white rounded-md shadow-md transition-transform duration-300 ease-in-out transform hover:scale-105">
       <img
         src={product.productImage}
         alt={product.productName}

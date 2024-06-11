@@ -13,6 +13,8 @@ export default function OrderManagement() {
   const [billSaleTotal, setBillSaleTotal] = useState(0);
   const [customerDetail, setCustomerDetail] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1); // เพิ่มสถานะสำหรับหน้า
+  const itemsPerPage = 20; // จำนวนรายการต่อหน้า
 
   useEffect(() => {
     fetchBills();
@@ -65,6 +67,7 @@ export default function OrderManagement() {
       console.error(error);
     }
   };
+
   const ChangeToDelivered = async (billId) => {
     try {
       const button = await Swal.fire({
@@ -95,7 +98,7 @@ export default function OrderManagement() {
     } catch (error) {
       console.log(error);
     } finally {
-      setLoading(true);
+      setLoading(false);
     }
   };
 
@@ -138,6 +141,14 @@ export default function OrderManagement() {
   const openCustomerModal = () => setCustomerModal(true);
   const closeCustomerModal = () => setCustomerModal(false);
 
+  // คำนวณรายการที่จะแสดงในหน้าปัจจุบัน
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentBills = bills.slice(indexOfFirstItem, indexOfLastItem); // ทำการ slice เอาข้อมูลแต่ละหน้า เช่น หน้าแรก ก็จะเริ่มที่ 0 ถึง 19 (slice(0,20))
+
+  // จำนวนหน้าทั้งหมด
+  const totalPages = Math.ceil(bills.length / itemsPerPage); // ปัดเลขขึ้น
+
   return (
     <>
       <p className="text-2xl text-black font-semibold">Order Management</p>
@@ -169,8 +180,8 @@ export default function OrderManagement() {
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
-            {bills.length > 0 ? (
-              bills.map((item, index) => {
+            {currentBills.length > 0 ? (
+              currentBills.map((item, index) => {
                 return (
                   <tr
                     key={item.id}
@@ -243,6 +254,38 @@ export default function OrderManagement() {
             )}
           </tbody>
         </table>
+        {/* Pagination Controls */}
+        <div className="flex justify-center space-x-2 my-4">
+          <button
+            onClick={() => setCurrentPage(currentPage - 1)}
+            disabled={currentPage === 1}
+            className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400"
+          >
+            Previous
+          </button>
+          {Array.from({ length: totalPages }, (_, index) => (
+            <button
+              key={index + 1}
+              onClick={() => setCurrentPage(index + 1)}
+              className={`px-4 py-2 rounded ${
+                currentPage === index + 1
+                  ? "bg-blue-500 text-white"
+                  : "bg-gray-300 hover:bg-gray-400"
+              }`}
+            >
+              {/*  แปล Array.from({ length: 5 }, (v, i) => i);
+// [0, 1, 2, 3, 4]*/}
+              {index + 1}
+            </button>
+          ))}
+          <button
+            onClick={() => setCurrentPage(currentPage + 1)}
+            disabled={currentPage === totalPages}
+            className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400"
+          >
+            Next
+          </button>
+        </div>
       </div>
       {loading && <Spinner transparent className="z-50" />}
       {isOpen && (

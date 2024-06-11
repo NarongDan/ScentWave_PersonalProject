@@ -1,8 +1,11 @@
+import useAuth from "../../../hooks/useAuth";
+
 export default function ShoppingBag({
   cart,
   handleQuantity,
   handleRemoveItem,
 }) {
+  const { authUser } = useAuth();
   return (
     <>
       <div className="bg-white p-6 rounded-lg shadow-lg">
@@ -73,7 +76,9 @@ export default function ShoppingBag({
 
                 <button
                   className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 mt-4 md:mt-0"
-                  onClick={() => handleRemoveItem(item.productId || item.id)}
+                  onClick={() =>
+                    handleRemoveItem(authUser ? item.id : item.productId)
+                  }
                 >
                   Remove
                 </button>

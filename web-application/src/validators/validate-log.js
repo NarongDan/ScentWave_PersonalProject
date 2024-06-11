@@ -12,8 +12,6 @@ const loginSchema = Joi.object({
 const validateLogin = (input) => {
   const { error } = loginSchema.validate(input, { abortEarly: false }); // validate ทุก keys
 
-  console.dir(error);
-
   if (error) {
     const result = error.details.reduce((acc, el) => {
       acc[el.path[0]] = el.message;

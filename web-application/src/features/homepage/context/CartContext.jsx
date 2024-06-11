@@ -48,9 +48,7 @@ export default function CartContextProvider({ children }) {
       try {
         await cartApi.adjustItemNumber(data);
         getAllProductsinCart();
-      } catch (error) {
-        console.log(error);
-      }
+      } catch (error) {}
     } else {
       // ถ้าผู้ใช้เป็น guest, ปรับข้อมูลใน local storage
       const guestCart = JSON.parse(localStorage.getItem("guestCart")) || [];
@@ -73,6 +71,7 @@ export default function CartContextProvider({ children }) {
   const handleRemoveItem = async (cartItemId) => {
     if (authUser) {
       // ถ้าผู้ใช้ล็อกอินอยู่, เรียกใช้ API
+
       try {
         await cartApi.deleteCartItem(cartItemId);
         getAllProductsinCart();
