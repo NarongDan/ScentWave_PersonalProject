@@ -6,6 +6,8 @@ import { toast } from "react-toastify";
 import validateRegister from "../../../validators/validate-register";
 import Textarea from "../../../components/Textarea";
 import { useNavigate } from "react-router-dom";
+import cartApi from "../../../apis/cart";
+import useCommercial from "../../../hooks/useCommercial";
 
 const initialInput = {
   firstName: "",
@@ -48,12 +50,19 @@ export default function RegistrationForm() {
       setInputError({ ...initialInput });
       // create user
 
-      await authApi.register(input);
+      const res = await authApi.register(input);
 
-      // const guestCart = localStorage.getItem("guestCart")
-      // if (guestCart) {
-      
-      // }
+      const guestCart = JSON.parse(localStorage.getItem("guestCart"));
+
+      const data = {
+        email: res.data.message.email,
+        cart: guestCart,
+      };
+
+      if (guestCart.length > 0) {
+        await cartApi.addCartFromGuest(data);
+        localStorage.removeItem("guestCart");
+      }
 
       toast.success("registered successfully, please log in to continue");
 
@@ -72,7 +81,7 @@ export default function RegistrationForm() {
       }
     }
   };
-
+const [forceUpdate, setForceUpdate] = useState(false);
   return (
     <form onSubmit={handleSubmitForm}>
       <p className="mb-10 text-center font-semibold text-2xl text-black ">
@@ -143,7 +152,7 @@ export default function RegistrationForm() {
           />
         </div>
         <div className="col-span-2 text-center">
-          <button className="w-full bg-yellow-300 text-black px-3 py-1.5 mt-4 font-bold rounded-md hover:bg-yellow-500  transition-colors duration-300">
+          <button className="w-full bg-yellow-300 text-black px-3 py-1.5 mt-4 font-bold rounded-md hover:bg-yellow-500  transition-colors duration-300" onClick={()=> setForceUpdate(prevState => !prevState)}>
             Sign Up
           </button>
         </div>

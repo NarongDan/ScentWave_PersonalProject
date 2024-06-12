@@ -2,8 +2,6 @@ const cartController = require("../controller/cart-controller");
 
 const cartRouter = require("express").Router();
 
-cartRouter.get("/", cartController.getCartById);
-
-
+cartRouter.post("/cartFromGuest", cartController.addProductIntoCart);
 
 module.exports = cartRouter;

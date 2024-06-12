@@ -5,6 +5,8 @@ const { createError } = require("../utils/create-error");
 
 const userController = {};
 
+userController.addProductIntoCartByEmail = async (req, res, naxt) => {};
+
 userController.getProductInCart = async (req, res, next) => {
   try {
     const data = await cartService.getProductInCart(+req.user.id);
@@ -137,4 +139,5 @@ userController.findUserById = async (req, res, next) => {
     next(error);
   }
 };
+
 module.exports = userController;

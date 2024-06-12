@@ -13,4 +13,6 @@ cartApi.createBill = (data) => axios.post("/bills", data); // data ={userId, pay
 
 cartApi.deleteCart = (id) => axios.delete(`/users/myCart/delete/${id}`);
 
+cartApi.addCartFromGuest = (data) => axios.post("/carts/cartFromGuest", data);
+
 export default cartApi;

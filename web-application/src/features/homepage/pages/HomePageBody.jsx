@@ -1,15 +1,16 @@
 import BannerSlide from "../components/BannerSlide";
 import ProductCard from "../components/ProductCard";
 import useCommercial from "../../../hooks/useCommercial";
+import { useEffect } from "react";
 
 export default function HomePageBody() {
-  const { getRandomProducts } = useCommercial();
+  const { getRandomProducts, fetchProducts } = useCommercial();
 
   const products = getRandomProducts(8);
 
-  const guestCart = localStorage.getItem("guestCart");
-
-  
+  useEffect(() => {
+    fetchProducts();
+  }, []);
 
   return (
     <>

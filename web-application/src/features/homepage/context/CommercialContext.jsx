@@ -26,7 +26,9 @@ export default function CommercialContextProvider({ children }) {
 
   return (
     <div>
-      <CommercialContext.Provider value={{ products, getRandomProducts }}>
+      <CommercialContext.Provider
+        value={{ products, getRandomProducts, fetchProducts }}
+      >
         {children}
       </CommercialContext.Provider>
     </div>

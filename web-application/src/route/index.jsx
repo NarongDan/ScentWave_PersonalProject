@@ -18,12 +18,14 @@ import ProductPage from "../features/homepage/pages/ProductPage";
 import SingleProductPage from "../features/homepage/pages/SingleProductPage";
 import AboutUs from "../pages/commercial/AboutUs";
 import ContactUs from "../pages/commercial/ContactUs";
+import { Navigate } from "react-router-dom";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <HomePage />,
     children: [
+      { path: "*", element: <Navigate to="/" replace /> },
       { path: "", element: <HomePageBody /> },
       { path: "/cart", element: <CartPage /> },
       { path: "/billing", element: <CheckoutPage /> },
