@@ -65,8 +65,8 @@ export default function PersonalInformation() {
     <div className="w-3/4 p-4">
       <h2 className="text-3xl text-black font-bold mb-6">My Details</h2>
       <form className="space-y-4" onSubmit={handleSubmitUpdate}>
-        <div className="md:flex md:space-x-4 space-y-4 md:space-y-0">
-          <div className="md:w-1/2 w-full">
+        <div className="xl:flex xl:space-x-4 space-y-4 xl:space-y-0">
+          <div className="xl:w-1/2 w-full">
             <label className="block text-gray-700">First Name</label>
             {isEditing ? (
               <Input
@@ -82,13 +82,13 @@ export default function PersonalInformation() {
               <p>{authUser?.firstName}</p>
             )}
           </div>
-          <div className="md:w-1/2 w-full">
+          <div className="xl:w-1/2 w-full">
             <label className="block text-gray-700">Last Name</label>
             {isEditing ? (
               <Input
                 type="text"
                 name="lastName"
-                className="w-full mt-1 px-4 py-2 border rounded-lg"
+                className="w-full mt-1 px-4 py-2 border rounded-lg "
                 value={input.lastName}
                 onChange={handleChangeInput}
                 placeholder={authUser.lastName}
@@ -99,7 +99,7 @@ export default function PersonalInformation() {
             )}
           </div>
         </div>
-        <div className="md:flex md:space-x-4 space-y-4 md:space-y-0">
+        <div className="xl:flex xl:space-x-4 space-y-4 xl:space-y-0">
           <div className="md:w-1/2 w-full">
             <label className="block text-gray-700">Email</label>
             {isEditing ? (
@@ -130,8 +130,8 @@ export default function PersonalInformation() {
             )}
           </div>
         </div>
-        <div className="md:flex md:space-x-4 space-y-4 md:space-y-0">
-          <div className="md:w-1/2 w-full">
+        <div className="xl:flex xl:space-x-4 space-y-4 xl:space-y-0">
+          <div className="lg:w-1/2 w-full">
             <label className="block text-gray-700">Address</label>
             {isEditing ? (
               <Textarea
@@ -149,10 +149,10 @@ export default function PersonalInformation() {
           </div>
         </div>
 
-        <div className="md:flex md:space-x-4 space-y-4 md:space-y-0">
+        <div className="xl:flex xl:space-x-4 space-y-4 xl:space-y-0">
           {isEditing && (
             <>
-              <div className="md:w-1/2 w-full">
+              <div className="xl:w-1/2 w-full">
                 <label className="block text-gray-700">Password</label>
                 <Input
                   type="password"

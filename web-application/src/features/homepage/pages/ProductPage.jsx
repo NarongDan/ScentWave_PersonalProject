@@ -57,14 +57,17 @@ export default function ProductPage() {
               type="text"
               value={search}
               onChange={handleSearch}
-              className="border border-gray-300 rounded-md py-2 px-4 focus:outline-none focus:ring-2 bg-white focus:ring-blue-400 pl-10"
+              className="border border-gray-300 rounded-md py-2 px-10 focus:outline-none bg-white"
               placeholder="Search products..."
             />
+            <span className="absolute left-0 top-0 mt-2 ml-3">
+              <i className="fas fa-search text-gray-400"></i>
+            </span>
           </div>
         </div>
         <div className="divide divide-y-2 bg-black"></div>
         <div className="flex justify-center w-full px-12 mt-10">
-          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-5 mb-[100px]">
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4 mb-[100px]">
             {search == ""
               ? currentProducts.map((item) => (
                   <ProductCard product={item} key={item.id} />

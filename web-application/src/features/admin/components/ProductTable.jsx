@@ -13,13 +13,15 @@ const initialInput = {
 };
 
 export default function ProductTable() {
-  const [product, setProduct] = useState({});
-  const [products, setProducts] = useState([]);
+  const [product, setProduct] = useState({}); // product แต่ละตัวเมื่อกด Edit
+  const [products, setProducts] = useState([]); // products ทั้งหมดที่ fetch มา
   const [isOpen, setIsOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [input, setInput] = useState(initialInput);
   const [currentPage, setCurrentPage] = useState(1); // เพิ่มสถานะสำหรับหน้า
   const itemsPerPage = 20; // จำนวนรายการต่อหน้า
+  const [descriptionModal, setDescriptionModal] = useState(false);
+  const [selectedDescription, setSelectedDescription] = useState("");
 
   useEffect(() => {
     fetchData();
@@ -41,8 +43,10 @@ export default function ProductTable() {
 
   const openModal = () => setIsOpen(true);
   const closeModal = () => {
+    setProduct({});
     setInput(initialInput);
     setIsOpen(false);
+    setDescriptionModal(false);
   };
   const handleChange = (e) => {
     e.preventDefault();
@@ -136,7 +140,7 @@ export default function ProductTable() {
 
   return (
     <>
-      <button className="btn btn-active  text-white" onClick={openModal}>
+      <button className="btn btn-active text-white" onClick={openModal}>
         <i className="fa fa-plus"></i> Add Product
       </button>
       {loading && <Spinner transparent className="z-50" />}
@@ -201,6 +205,21 @@ export default function ProductTable() {
           </div>
         </div>
       )}
+
+      {descriptionModal && (
+        <div className="modal modal-open z-40">
+          <div className="modal-box">
+            <h2 className="font-bold text-xl text-center">Description</h2>
+            <p>{selectedDescription}</p>
+            <div className="modal-action">
+              <button className="btn" onClick={closeModal}>
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       <div className="overflow-x-auto">
         <table className="min-w-full divide-y divide-gray-200">
           <thead className="bg-gray-700">
@@ -240,8 +259,15 @@ export default function ProductTable() {
                     />
                   </td>
                   <td className="px-6 py-4 text-center">{item.productName}</td>
-                  <td className="px-6 py-4 text-center whitespace-nowrap">
-                    {item.productDetail}
+                  <td className="px-6 py-4 text-center max-w-xs truncate">
+                    <button
+                      onClick={() => {
+                        setSelectedDescription(item.productDetail);
+                        setDescriptionModal(true);
+                      }}
+                    >
+                      {item.productDetail}
+                    </button>
                   </td>
                   <td className="px-6 py-4 text-right whitespace-nowrap">
                     {item.productCost}

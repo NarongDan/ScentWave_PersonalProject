@@ -48,7 +48,9 @@ export default function CartContextProvider({ children }) {
       try {
         await cartApi.adjustItemNumber(data);
         getAllProductsinCart();
-      } catch (error) {}
+      } catch (error) {
+        console.log(error);
+      }
     } else {
       // ถ้าผู้ใช้เป็น guest, ปรับข้อมูลใน local storage
       const guestCart = JSON.parse(localStorage.getItem("guestCart")) || [];
@@ -121,6 +123,7 @@ export default function CartContextProvider({ children }) {
       }
 
       localStorage.setItem("guestCart", JSON.stringify(cart));
+      setRefresh(!refresh);
     }
   };
 
@@ -132,6 +135,7 @@ export default function CartContextProvider({ children }) {
         handleQuantity,
         handleRemoveItem,
         handleAddToCart,
+        getAllProductsinCart,
       }}
     >
       {children}

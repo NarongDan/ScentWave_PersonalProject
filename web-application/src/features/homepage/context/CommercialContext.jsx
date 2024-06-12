@@ -19,9 +19,14 @@ export default function CommercialContextProvider({ children }) {
     fetchProducts();
   }, []);
 
+  const getRandomProducts = (num) => {
+    const shuffledProducts = [...products].sort(() => 0.5 - Math.random());
+    return shuffledProducts.slice(0, num);
+  }; /// ใช่สุ่มของมาโชว์
+
   return (
     <div>
-      <CommercialContext.Provider value={{ products }}>
+      <CommercialContext.Provider value={{ products, getRandomProducts }}>
         {children}
       </CommercialContext.Provider>
     </div>

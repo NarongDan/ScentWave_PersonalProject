@@ -50,6 +50,11 @@ export default function RegistrationForm() {
 
       await authApi.register(input);
 
+      // const guestCart = localStorage.getItem("guestCart")
+      // if (guestCart) {
+      
+      // }
+
       toast.success("registered successfully, please log in to continue");
 
       navigate("/login");

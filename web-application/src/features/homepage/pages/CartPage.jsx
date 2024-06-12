@@ -17,12 +17,6 @@ export default function CartPage() {
   // ใช้ตะกร้าที่ถูกต้องขึ้นอยู่กับสถานะการล็อกอินของผู้ใช้
   const currentCart = authUser ? cart : guestCart;
 
-  useEffect(() => {
-
-
-    
-  }, [currentCart]);
-
   return (
     <div className="w-full min-h-[40em] py-10 px-5 flex flex-col  ">
       <div className="text-center text-3xl font-bold text-black mb-10">

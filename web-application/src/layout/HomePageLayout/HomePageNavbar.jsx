@@ -25,23 +25,22 @@ export default function HomePageNavbar() {
   }, [currentCart]); // ระบุ currentCart เป็น dependency เพื่อให้ useEffect เรียกใช้งานเมื่อค่าเปลี่ยน
 
   return (
-    <div className="">
-      <header className="sticky top-0 flex w-full justify-evenly items-center bg-white py-4 shadow-lg z-50">
-        <Link to="/">
-          <div className="text-xl font-bold">ScentWave</div>
+    <div className="bg-white shadow-lg sticky top-0 z-40 px-10 ">
+      <div className="container mx-auto px-4 py-4 flex justify-between items-center">
+        <Link to="/" className="text-xl font-bold text-gray-800">
+          ScentWave
         </Link>
-        <div className="flex space-x-4">
+        <div className="hidden md:flex space-x-4">
           <Link to="/products" className="text-gray-500 hover:text-gray-700">
             PRODUCTS
           </Link>
-          <Link to="#" className="text-gray-500 hover:text-gray-700">
+          <Link to="/about" className="text-gray-500 hover:text-gray-700">
             ABOUT SCENTWAVE
           </Link>
-          <Link to="#" className="text-gray-500 hover:text-gray-700">
+          <Link to="contact" className="text-gray-500 hover:text-gray-700">
             CONTACT US
           </Link>
         </div>
-
         <div className="flex space-x-4 relative">
           <Link to="cart">
             <div className="relative">
@@ -55,14 +54,38 @@ export default function HomePageNavbar() {
               )}
             </div>
           </Link>
-
           <Link to="login">
             <div className="w-10 h-10 flex items-center justify-center m-2 p-2 rounded-full hover:bg-gray-300 cursor-pointer transition duration-200">
               <FaUserTie className="text-gray-700" size={25} />
             </div>
           </Link>
         </div>
-      </header>
+        {/* <div className="md:hidden">
+          <button className="mobile-menu-button focus:outline-none">
+            <svg
+              className="w-6 h-6 text-gray-700"
+              fill="none"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              viewBox="0 0 24 24"
+            >
+              <path d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+          </button>
+        </div> */}
+      </div>
+      <div className="mobile-menu hidden">
+        <Link to="/products" className="block py-2 px-4 text-gray-700">
+          PRODUCTS
+        </Link>
+        <Link to="#" className="block py-2 px-4 text-gray-700">
+          ABOUT SCENTWAVE
+        </Link>
+        <Link to="#" className="block py-2 px-4 text-gray-700">
+          CONTACT US
+        </Link>
+      </div>
     </div>
   );
 }

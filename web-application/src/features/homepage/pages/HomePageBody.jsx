@@ -3,7 +3,14 @@ import ProductCard from "../components/ProductCard";
 import useCommercial from "../../../hooks/useCommercial";
 
 export default function HomePageBody() {
-  const { products } = useCommercial();
+  const { getRandomProducts } = useCommercial();
+
+  const products = getRandomProducts(8);
+
+  const guestCart = localStorage.getItem("guestCart");
+
+  
+
   return (
     <>
       <div className="flex items-center justify-center w-full">

@@ -233,7 +233,7 @@ export default function OrderHistory() {
               </tbody>
             </table>
           </div>
-          <p className="text-center text-white font-bold">
+          <p className="text-center text-black font-bold">
             Total : {billSaleTotal}
           </p>
         </Modal>

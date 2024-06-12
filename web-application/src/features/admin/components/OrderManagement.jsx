@@ -375,10 +375,10 @@ export default function OrderManagement() {
                   <th className="px-6 py-3 text-center text-xs font-medium text-white uppercase tracking-wider">
                     Email
                   </th>
-                  <th className="px-6 py-3 text-right text-xs font-medium text-white uppercase tracking-wider">
+                  <th className="px-6 py-3 text-center text-xs font-medium text-white uppercase tracking-wider">
                     Phone
                   </th>
-                  <th className="px-6 py-3 text-right text-xs font-medium text-white uppercase tracking-wider">
+                  <th className="px-6 py-3 text-center text-xs font-medium text-white uppercase tracking-wider">
                     Address
                   </th>
                 </tr>

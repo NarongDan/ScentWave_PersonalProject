@@ -16,6 +16,8 @@ import ProtectProfileRoute from "../features/authentication/components/ProtectPr
 import ProtectRoute from "../features/authentication/components/ProtectRoute";
 import ProductPage from "../features/homepage/pages/ProductPage";
 import SingleProductPage from "../features/homepage/pages/SingleProductPage";
+import AboutUs from "../pages/commercial/AboutUs";
+import ContactUs from "../pages/commercial/ContactUs";
 
 const router = createBrowserRouter([
   {
@@ -27,6 +29,8 @@ const router = createBrowserRouter([
       { path: "/billing", element: <CheckoutPage /> },
       { path: "/products", element: <ProductPage /> },
       { path: "/product/:productName", element: <SingleProductPage /> },
+      { path: "/about", element: <AboutUs /> },
+      { path: "/contact", element: <ContactUs /> },
       {
         path: "/login",
         element: (
@@ -37,11 +41,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/register",
-        element: (
-          <ProtectRoute>
-            <Registration />
-          </ProtectRoute>
-        ),
+        element: <Registration />,
       },
       {
         path: "/profile",

@@ -72,6 +72,7 @@ export default function LoginForm() {
         <Input
           placeholder="password"
           name="password"
+          type="password"
           value={input.password}
           onChange={handleChange}
           error={inputError.password}
