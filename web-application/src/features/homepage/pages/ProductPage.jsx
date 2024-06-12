@@ -22,11 +22,6 @@ export default function ProductPage() {
     setCurrentPage(page);
   };
 
-  const handleSearch = (e) => {
-    setSearch(e.target.value);
-    setCurrentPage(1); // เมื่อค้นหาเปลี่ยนให้กลับไปที่หน้าแรก
-  };
-
   const goToNextPage = () => {
     if (currentPage < totalPages) {
       setCurrentPage((prevPage) => prevPage + 1);
@@ -37,6 +32,17 @@ export default function ProductPage() {
     if (currentPage > 1) {
       setCurrentPage((prevPage) => prevPage - 1);
     }
+  };
+
+  /// Search
+
+  const filteredProducts = products?.filter((item) =>
+    item.productName.toLowerCase().includes(search)
+  );
+
+  const handleSearch = (e) => {
+    setSearch(e.target.value);
+    setCurrentPage(1); // เมื่อค้นหาเปลี่ยนให้กลับไปที่หน้าแรก
   };
 
   return (
@@ -59,9 +65,13 @@ export default function ProductPage() {
         <div className="divide divide-y-2 bg-black"></div>
         <div className="flex justify-center w-full px-12 mt-10">
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-5 mb-[100px]">
-            {currentProducts.map((item) => (
-              <ProductCard product={item} key={item.id} />
-            ))}
+            {search == ""
+              ? currentProducts.map((item) => (
+                  <ProductCard product={item} key={item.id} />
+                ))
+              : filteredProducts.map((item) => (
+                  <ProductCard product={item} key={item.id} />
+                ))}
           </div>
         </div>
         <div className="flex justify-center mt-5">

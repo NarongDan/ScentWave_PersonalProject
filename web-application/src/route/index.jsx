@@ -15,6 +15,7 @@ import OrderHistory from "../features/homepage/components/OrderHistory";
 import ProtectProfileRoute from "../features/authentication/components/ProtectProfileRoute";
 import ProtectRoute from "../features/authentication/components/ProtectRoute";
 import ProductPage from "../features/homepage/pages/ProductPage";
+import SingleProductPage from "../features/homepage/pages/SingleProductPage";
 
 const router = createBrowserRouter([
   {
@@ -25,6 +26,7 @@ const router = createBrowserRouter([
       { path: "/cart", element: <CartPage /> },
       { path: "/billing", element: <CheckoutPage /> },
       { path: "/products", element: <ProductPage /> },
+      { path: "/product/:productName", element: <SingleProductPage /> },
       {
         path: "/login",
         element: (

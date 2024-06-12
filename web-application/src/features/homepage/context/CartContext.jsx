@@ -90,9 +90,49 @@ export default function CartContextProvider({ children }) {
     }
   };
 
+  const handleAddToCart = (product) => {
+    if (authUser) {
+      // User is logged in, use handleQuantity function
+      handleQuantity({
+        userId: authUser?.id,
+        productId: product?.id,
+        amount: 1,
+        productPrice: product.productPrice,
+        productDetail: product.productDetail,
+      });
+    } else {
+      // User is a guest, use local storage
+      const cart = JSON.parse(localStorage.getItem("guestCart")) || [];
+      const existingProductIndex = cart.findIndex(
+        (item) => item.productId === product.id
+      );
+
+      if (existingProductIndex > -1) {
+        cart[existingProductIndex].amount += 1;
+      } else {
+        cart.push({
+          productId: product.id,
+          amount: 1,
+          productPrice: product.productPrice,
+          productName: product.productName,
+          productImage: product.productImage,
+          productDetail: product.productDetail,
+        });
+      }
+
+      localStorage.setItem("guestCart", JSON.stringify(cart));
+    }
+  };
+
   return (
     <CartContext.Provider
-      value={{ cart, dispatch, handleQuantity, handleRemoveItem }}
+      value={{
+        cart,
+        dispatch,
+        handleQuantity,
+        handleRemoveItem,
+        handleAddToCart,
+      }}
     >
       {children}
     </CartContext.Provider>
