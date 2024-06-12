@@ -20,7 +20,7 @@ model User {
   phone     String
   email     String      @unique
   password  String
-  address   String
+  address   String      @db.Text
   isAdmin   Boolean     @default(false)
   createdAt DateTime    @default(now()) @db.Timestamp(0)
   updatedAt DateTime    @updatedAt @db.Timestamp(0)
@@ -61,7 +61,7 @@ model Product {
   productPrice  Int
   productImage  String
   status        String        @default("use")
-  productDetail String
+  productDetail String        @db.Text
   createdAt     DateTime      @default(now()) @db.Timestamp(0)
   updatedAt     DateTime      @updatedAt @db.Timestamp(0)
   Cartitems     Cartitems[]

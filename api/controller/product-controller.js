@@ -29,6 +29,8 @@ productController.insertProduct = async (req, res, next) => {
       data.productImage = await uploadService.upload(req.file.path);
     }
 
+    console.log(data);
+
     if (Object.keys(data).length !== 5) {
       createError("Please insert all fields of product", 400);
     } // บังคับให้กรอกข้อมูลทุกอย่างเข้ามา
