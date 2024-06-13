@@ -58,15 +58,15 @@ export default function RegistrationForm() {
         email: res.data.message.email,
         cart: guestCart,
       };
+      toast.success("registered successfully, please log in to continue");
+
+      navigate("/login");
 
       if (guestCart.length > 0) {
         await cartApi.addCartFromGuest(data);
         localStorage.removeItem("guestCart");
+        window.location.reload();
       }
-
-      toast.success("registered successfully, please log in to continue");
-
-      navigate("/login");
     } catch (error) {
       console.log(error);
       //check ว่า axios errro จากตรงไหน ถ้า error status 400-500 จะมาจาก AxiosError  ต้องเช็คโดยถามว่า error ที่ได้มา เป็น instance of AxiosError ไหม
@@ -81,7 +81,7 @@ export default function RegistrationForm() {
       }
     }
   };
-const [forceUpdate, setForceUpdate] = useState(false);
+
   return (
     <form onSubmit={handleSubmitForm}>
       <p className="mb-10 text-center font-semibold text-2xl text-black ">
@@ -135,6 +135,7 @@ const [forceUpdate, setForceUpdate] = useState(false);
         </div>
         <div className="col-span-2 flex flex-col">
           <Input
+            type="password"
             placeholder="Password"
             name="password"
             value={input.password}
@@ -144,6 +145,7 @@ const [forceUpdate, setForceUpdate] = useState(false);
         </div>
         <div className="col-span-2 flex flex-col">
           <Input
+            type="password"
             placeholder="Confirm password"
             name="confirmPassword"
             value={input.confirmPassword}
@@ -152,7 +154,7 @@ const [forceUpdate, setForceUpdate] = useState(false);
           />
         </div>
         <div className="col-span-2 text-center">
-          <button className="w-full bg-yellow-300 text-black px-3 py-1.5 mt-4 font-bold rounded-md hover:bg-yellow-500  transition-colors duration-300" onClick={()=> setForceUpdate(prevState => !prevState)}>
+          <button className="w-full bg-yellow-300 text-black px-3 py-1.5 mt-4 font-bold rounded-md hover:bg-yellow-500  transition-colors duration-300">
             Sign Up
           </button>
         </div>

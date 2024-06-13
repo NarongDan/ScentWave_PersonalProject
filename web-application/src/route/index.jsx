@@ -19,6 +19,7 @@ import SingleProductPage from "../features/homepage/pages/SingleProductPage";
 import AboutUs from "../pages/commercial/AboutUs";
 import ContactUs from "../pages/commercial/ContactUs";
 import { Navigate } from "react-router-dom";
+import ProtectRouteAdmin from "../features/authentication/components/ProtectRouteAdmin";
 
 const router = createBrowserRouter([
   {
@@ -63,9 +64,9 @@ const router = createBrowserRouter([
   {
     path: "/admin",
     element: (
-      <ProtectRoute>
+      <ProtectRouteAdmin>
         <MainContainer />
-      </ProtectRoute>
+      </ProtectRouteAdmin>
     ),
     children: [
       { path: "", element: <ProductManagement /> },

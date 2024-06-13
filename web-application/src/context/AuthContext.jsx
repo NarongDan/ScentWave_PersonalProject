@@ -15,6 +15,9 @@ export default function AuthContextProvider({ children }) {
   const [authUser, setAuthUser] = useState(null);
   const [isAuthUserLoading, setIsAuthUserLoading] = useState(true);
 
+  useEffect(() => {
+    fetchUser();
+  }, []);
   const fetchUser = async () => {
     try {
       // ในหน้า homepage เมื่อกด refresh
@@ -30,9 +33,7 @@ export default function AuthContextProvider({ children }) {
     }
   };
 
-  useEffect(() => {
-    fetchUser();
-  }, []); // useEffect จะทำงานตามลำดับ  ตัวบนจะเสร็จก่อนตัวล่าง // ไม่สามารถใช้ async /await ใน useEffect ได้ ต้องสร้างfn wrapper ขึ้นมาใช้แทน
+  // useEffect จะทำงานตามลำดับ  ตัวบนจะเสร็จก่อนตัวล่าง // ไม่สามารถใช้ async /await ใน useEffect ได้ ต้องสร้างfn wrapper ขึ้นมาใช้แทน
 
   const login = async (credentials) => {
     const res = await authApi.login(credentials);

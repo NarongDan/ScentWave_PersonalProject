@@ -20,6 +20,21 @@ export default function CartContextProvider({ children }) {
   const { authUser } = useAuth();
   const [refresh, setRefresh] = useState(false); // ให้ re-render ใหม่เมื่อมีการอัพเดทสินค้าในtoken
 
+  const [cartItemCount, setCartItemCount] = useState(0);
+
+  // ตรวจสอบหากผู้ใช้ไม่ได้ล็อกอิน ให้ใช้ตะกร้าจาก local storage
+  const guestCart = !authUser
+    ? JSON.parse(localStorage.getItem("guestCart")) || []
+    : [];
+
+  // ใช้ตะกร้าที่ถูกต้องขึ้นอยู่กับสถานะการล็อกอินของผู้ใช้
+  const currentCart = authUser ? cart : guestCart;
+
+  useEffect(() => {
+    // เมื่อค่าของ currentCart เปลี่ยนแปลง ให้อัปเดตจำนวนรายการในตะกร้า
+    setCartItemCount(currentCart.length);
+  }, [currentCart]); // ระบุ currentCart เป็น dependency เพื่อให้ useEffect เรียกใช้งานเมื่อค่าเปลี่ยน
+
   const getAllProductsinCart = async () => {
     try {
       const res = await cartApi.getAllProductsInCart();
@@ -136,6 +151,7 @@ export default function CartContextProvider({ children }) {
         handleRemoveItem,
         handleAddToCart,
         getAllProductsinCart,
+        cartItemCount,
       }}
     >
       {children}

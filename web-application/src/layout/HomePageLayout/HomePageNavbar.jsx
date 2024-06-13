@@ -3,26 +3,9 @@ import { FaUserTie } from "react-icons/fa";
 import { IoCartOutline } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import useCart from "../../hooks/useCart";
-import useAuth from "../../hooks/useAuth";
 
 export default function HomePageNavbar() {
-  const [cartItemCount, setCartItemCount] = useState(0);
-
-  const { cart } = useCart();
-  const { authUser } = useAuth();
-
-  // ตรวจสอบหากผู้ใช้ไม่ได้ล็อกอิน ให้ใช้ตะกร้าจาก local storage
-  const guestCart = !authUser
-    ? JSON.parse(localStorage.getItem("guestCart")) || []
-    : [];
-
-  // ใช้ตะกร้าที่ถูกต้องขึ้นอยู่กับสถานะการล็อกอินของผู้ใช้
-  const currentCart = authUser ? cart : guestCart;
-
-  useEffect(() => {
-    // เมื่อค่าของ currentCart เปลี่ยนแปลง ให้อัปเดตจำนวนรายการในตะกร้า
-    setCartItemCount(currentCart.length);
-  }, [currentCart]); // ระบุ currentCart เป็น dependency เพื่อให้ useEffect เรียกใช้งานเมื่อค่าเปลี่ยน
+  const { cartItemCount } = useCart();
 
   return (
     <div className="bg-white shadow-lg sticky top-0 z-40 px-10 ">

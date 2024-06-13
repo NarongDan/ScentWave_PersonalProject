@@ -41,7 +41,10 @@ export default function LoginForm() {
 
       if (res.isAdmin) {
         navigate("/admin");
-      } else navigate("/");
+      } else {
+        navigate("/");
+        window.location.reload();
+      }
 
       toast.success("login successfully");
     } catch (error) {

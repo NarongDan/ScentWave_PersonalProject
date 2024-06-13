@@ -42,16 +42,17 @@ export default function CheckoutPage() {
       productCost: item.product.productCost,
       amount: item.amount,
     }));
+
     carts.forEach((cartItem, index) => {
       for (const key in cartItem) {
         formData.append(`carts[${index}][${key}]`, cartItem[key]);
       }
-    });
+    }); // ใส่ข้อมูลในตะกร้า
 
     formData.append("userId", authUser.id);
     formData.append("payDate", payDate);
     formData.append("payTime", payTime);
-    formData.append("slipImage", paySlip);
+    formData.append("slipImage", paySlip); // ใส่ข้อมูลในบิล
 
     try {
       await cartApi.createBill(formData);

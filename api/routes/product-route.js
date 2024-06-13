@@ -1,5 +1,6 @@
 const productController = require("../controller/product-controller");
 const { authenticate } = require("../middlewares/authenticate");
+const { isAdmin } = require("../middlewares/is-admin");
 
 const uploadToStorage = require("../middlewares/upload-to-storage");
 
@@ -10,6 +11,7 @@ productRouter.get("/", productController.getAllProducts);
 productRouter.post(
   "/",
   authenticate,
+  isAdmin,
   uploadToStorage.single("productImage"),
   productController.insertProduct
 );
@@ -17,6 +19,7 @@ productRouter.post(
 productRouter.patch(
   "/:productId",
   authenticate,
+  isAdmin,
   uploadToStorage.single("productImage"),
   productController.updateProduct
 );
@@ -24,6 +27,7 @@ productRouter.patch(
 productRouter.delete(
   "/:productId",
   authenticate,
+  isAdmin,
   productController.deleteProduct
 );
 
