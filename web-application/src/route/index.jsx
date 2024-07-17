@@ -20,6 +20,7 @@ import AboutUs from "../pages/commercial/AboutUs";
 import ContactUs from "../pages/commercial/ContactUs";
 import { Navigate } from "react-router-dom";
 import ProtectRouteAdmin from "../features/authentication/components/ProtectRouteAdmin";
+import AdminLiveChat from "../features/admin/components/AdminLiveChat";
 
 const router = createBrowserRouter([
   {
@@ -71,6 +72,7 @@ const router = createBrowserRouter([
     children: [
       { path: "", element: <ProductManagement /> },
       { path: "order-management", element: <OrderManagement /> },
+      { path: "live-chat", element: <AdminLiveChat /> },
     ],
   },
 ]);

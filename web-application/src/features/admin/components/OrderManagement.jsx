@@ -13,6 +13,8 @@ export default function OrderManagement() {
   const [billSaleTotal, setBillSaleTotal] = useState(0);
   const [customerDetail, setCustomerDetail] = useState([]);
   const [loading, setLoading] = useState(false);
+
+  
   const [currentPage, setCurrentPage] = useState(1); // เพิ่มสถานะสำหรับหน้า
   const itemsPerPage = 20; // จำนวนรายการต่อหน้า
 

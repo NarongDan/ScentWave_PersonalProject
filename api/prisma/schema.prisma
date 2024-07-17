@@ -32,9 +32,13 @@ model Bill {
   id          Int           @id @default(autoincrement())
   userId      Int
   payDate     DateTime?
-  payTime     String
+  payTime     String?
   status      String        @default("PENDING") // PENDING, DELIVERED, CANCELLED
-  slipImage   String
+  slipImage   String?
+  type        String? // transfer or credit card
+  orderId     String?
+  orderStatus String? // credit card payment status
+  sessionId   String?       @unique // checkout session id
   createdAt   DateTime      @default(now()) @db.Timestamp(0)
   updatedAt   DateTime      @updatedAt @db.Timestamp(0)
   user        User          @relation(fields: [userId], references: [id])

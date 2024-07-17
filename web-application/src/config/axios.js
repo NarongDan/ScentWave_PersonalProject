@@ -4,8 +4,6 @@ import { getAccessToken, removeAccessToken } from "../utils/local-storage";
 // แก้ baseurl ไว้
 axios.defaults.baseURL = "http://localhost:8888";
 
-console.log(axios.defaults.baseURL);
-
 axios.interceptors.request.use(
   (config) => {
     const accessToken = getAccessToken();

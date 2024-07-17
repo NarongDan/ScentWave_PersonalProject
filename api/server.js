@@ -10,8 +10,10 @@ const { authenticate } = require("./middlewares/authenticate");
 const userRouter = require("./routes/user-route");
 const billRouter = require("./routes/bill-route");
 const cartRouter = require("./routes/cart-route");
+const utilsRouter = require("./routes/utils-route");
 
 app.use(cors());
+app.use("/utils", utilsRouter); // ต้องมาก่อน 2 ตัวล่าง
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

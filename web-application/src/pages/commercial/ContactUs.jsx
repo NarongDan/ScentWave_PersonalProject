@@ -1,3 +1,5 @@
+import MapComponent from "../../features/homepage/components/MapComponent";
+
 export default function ContactUs() {
   return (
     <div className="container mx-auto px-4 py-8">
@@ -16,6 +18,12 @@ export default function ContactUs() {
             <li>Email: info@scentwave.com</li>
             <li>Address: 123 Fragrance Ave, City, Country</li>
           </ul>
+          <div>
+            <header className="mt-5">
+              <h1 className="text-2xl font-bold"></h1>
+              <MapComponent />
+            </header>
+          </div>
         </div>
         <div>
           <h3 className="text-xl font-semibold text-gray-700 mb-4">

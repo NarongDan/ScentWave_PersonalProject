@@ -46,4 +46,20 @@ billService.findBillDetailByBillId = (id) =>
       },
     },
   });
+
+billService.saveOrderDataForCreditCardPayment = (data) =>
+  prisma.bill.create({ data });
+
+billService.getCreditCardPaymentOrder = (orderId) =>
+  prisma.bill.findMany({
+    where: {
+      orderId: orderId,
+    },
+  });
+
+billService.updateCreditCardPaymentStatus = (sessionId, orderStatus) =>
+  prisma.bill.update({
+    where: { sessionId: sessionId },
+    data: { orderStatus: orderStatus },
+  });
 module.exports = billService;

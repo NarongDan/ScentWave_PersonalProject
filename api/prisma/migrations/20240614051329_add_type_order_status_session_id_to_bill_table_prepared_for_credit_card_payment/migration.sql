@@ -1,0 +1,6 @@
+-- AlterTable
+ALTER TABLE `bill` ADD COLUMN `orderStatus` VARCHAR(191) NULL,
+    ADD COLUMN `sessionId` VARCHAR(191) NULL,
+    ADD COLUMN `type` VARCHAR(191) NULL,
+    MODIFY `slipImage` VARCHAR(191) NULL,
+    MODIFY `payTime` VARCHAR(191) NULL;

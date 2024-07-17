@@ -2,6 +2,10 @@ const billService = require("../service/bill-service");
 const uploadService = require("../service/upload-service");
 const { createError } = require("../utils/create-error");
 const fs = require("fs");
+const stripe = require("stripe")(
+  "sk_test_51PRSAsC6Bw2G4bOHJYVCWrrLcGpBOhOFzPwXGQgiAgRQbv3GtA2F99D8y9XAoKSo1ttvumPUbhKFEQV1h40YfbvH00mrSCRSkc"
+);
+const { v4: uuidv4 } = require("uuid");
 
 const billController = {};
 
@@ -102,6 +106,73 @@ billController.getBillDetailByBillId = async (req, res, next) => {
     console.log;
     const result = await billService.findBillDetailByBillId(+req.params.billId);
     res.status(200).json({ result });
+  } catch (error) {
+    next(error);
+  }
+};
+
+// credit card payment
+billController.createCheckoutSession = async (req, res, next) => {
+  try {
+    console.log(req.input);
+    // make session paymnet ขอจ่ายเงิน
+
+    const items = [
+      { name: "T-shirt", price: 2000, quantity: 1 },
+      { name: "Jeans", price: 5000, quantity: 1 },
+      { name: "Cap", price: 1500, quantity: 2 },
+    ];
+
+    const lineItems = items.map((item) => ({
+      price_data: {
+        currency: "thb",
+        product_data: {
+          name: item.name,
+        },
+        unit_amount: item.price * 100,
+      },
+      quantity: item.quantity,
+    }));
+
+    const orderId = uuidv4();
+
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ["card", "promptpay"],
+      customer_email: req.user.email,
+      line_items: lineItems,
+      mode: "payment",
+      success_url: `http://localhost:8888/success.html?id=${orderId}`,
+      cancel_url: `http://localhost:8888/cancel.html`,
+    });
+
+    console.log(session);
+
+    const orderData = {
+      userId: +req.user.id,
+      orderId: orderId,
+      orderStatus: session.status,
+      sessionId: session.id,
+      type: "credit card",
+    };
+
+    const result = await billService.saveOrderDataForCreditCardPayment(
+      orderData
+    );
+
+    res.status(200).json({ order: result });
+  } catch (error) {
+    next(error);
+  }
+};
+
+billController.getCreditCardPaymentOrder = async (req, res, next) => {
+  try {
+    const orderId = req.params.id;
+
+    const result = await billService.getCreditCardPaymentOrder(orderId);
+    const orderResult = result[0];
+
+    res.status(200).json({ orderResult });
   } catch (error) {
     next(error);
   }

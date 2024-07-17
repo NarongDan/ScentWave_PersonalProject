@@ -5,8 +5,8 @@ import ProductCard from "../components/ProductCard";
 export default function ProductPage() {
   const { products } = useCommercial();
   const [search, setSearch] = useState("");
-  const [currentPage, setCurrentPage] = useState(1);
-  const productsPerPage = 20;
+  const [currentPage, setCurrentPage] = useState(1); // หน้าเริ่มต้นเป็น หน้า 1
+  const productsPerPage = 20; //ในหนึ่งหน้า มีกี่item
 
   // คำนวณหน้าที่ต้องการแสดง
   const indexOfLastProduct = currentPage * productsPerPage;
@@ -16,8 +16,7 @@ export default function ProductPage() {
     indexOfLastProduct
   );
 
-  const totalPages = Math.ceil(products.length / productsPerPage);
-
+  const totalPages = Math.ceil(products.length / productsPerPage); // จำนวนหน้าทั้งหมด
   const handleChangePage = (page) => {
     setCurrentPage(page);
   };

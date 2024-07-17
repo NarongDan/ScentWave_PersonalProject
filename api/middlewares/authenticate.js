@@ -6,8 +6,6 @@ exports.authenticate = async (req, res, next) => {
   try {
     const authorization = req.headers.authorization;
 
-    console.log("This issss", authorization);
-
     if (!authorization || !authorization.startsWith("Bearer ")) {
       createError("unauthenticated", 401);
     }
