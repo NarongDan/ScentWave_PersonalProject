@@ -2,7 +2,7 @@ import axios from "axios";
 import { getAccessToken, removeAccessToken } from "../utils/local-storage";
 
 // แก้ baseurl ไว้
-axios.defaults.baseURL = "http://localhost:8888";
+axios.defaults.baseURL = "https://scentwave-personalproject.onrender.com";
 
 axios.interceptors.request.use(
   (config) => {
