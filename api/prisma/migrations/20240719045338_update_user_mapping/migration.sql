@@ -1,16 +1,17 @@
 -- CreateTable
-CREATE TABLE `User` (
+CREATE TABLE `user` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `firstName` VARCHAR(191) NOT NULL,
     `lastName` VARCHAR(191) NOT NULL,
-    `phone` INTEGER NOT NULL,
+    `phone` VARCHAR(191) NOT NULL,
     `email` VARCHAR(191) NOT NULL,
     `password` VARCHAR(191) NOT NULL,
-    `address` VARCHAR(191) NOT NULL,
+    `address` TEXT NOT NULL,
     `isAdmin` BOOLEAN NOT NULL DEFAULT false,
     `createdAt` TIMESTAMP(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
     `updatedAt` TIMESTAMP(0) NOT NULL,
 
+    UNIQUE INDEX `user_email_key`(`email`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -18,13 +19,18 @@ CREATE TABLE `User` (
 CREATE TABLE `Bill` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `userId` INTEGER NOT NULL,
-    `payDate` DATETIME(3) NOT NULL,
-    `totalPrice` INTEGER NOT NULL,
+    `payDate` DATETIME(3) NULL,
+    `payTime` VARCHAR(191) NULL,
     `status` VARCHAR(191) NOT NULL DEFAULT 'PENDING',
-    `slipImage` VARCHAR(191) NOT NULL,
+    `slipImage` VARCHAR(191) NULL,
+    `type` VARCHAR(191) NULL,
+    `orderId` VARCHAR(191) NULL,
+    `orderStatus` VARCHAR(191) NULL,
+    `sessionId` VARCHAR(191) NULL,
     `createdAt` TIMESTAMP(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
     `updatedAt` TIMESTAMP(0) NOT NULL,
 
+    UNIQUE INDEX `Bill_sessionId_key`(`sessionId`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -50,7 +56,7 @@ CREATE TABLE `Product` (
     `productPrice` INTEGER NOT NULL,
     `productImage` VARCHAR(191) NOT NULL,
     `status` VARCHAR(191) NOT NULL DEFAULT 'use',
-    `productDetail` VARCHAR(191) NOT NULL,
+    `productDetail` TEXT NOT NULL,
     `createdAt` TIMESTAMP(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
     `updatedAt` TIMESTAMP(0) NOT NULL,
 
@@ -71,7 +77,7 @@ CREATE TABLE `Cartitems` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- AddForeignKey
-ALTER TABLE `Bill` ADD CONSTRAINT `Bill_userId_fkey` FOREIGN KEY (`userId`) REFERENCES `User`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE `Bill` ADD CONSTRAINT `Bill_userId_fkey` FOREIGN KEY (`userId`) REFERENCES `user`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `BillDetails` ADD CONSTRAINT `BillDetails_productId_fkey` FOREIGN KEY (`productId`) REFERENCES `Product`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -80,7 +86,7 @@ ALTER TABLE `BillDetails` ADD CONSTRAINT `BillDetails_productId_fkey` FOREIGN KE
 ALTER TABLE `BillDetails` ADD CONSTRAINT `BillDetails_billId_fkey` FOREIGN KEY (`billId`) REFERENCES `Bill`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `Cartitems` ADD CONSTRAINT `Cartitems_userId_fkey` FOREIGN KEY (`userId`) REFERENCES `User`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE `Cartitems` ADD CONSTRAINT `Cartitems_userId_fkey` FOREIGN KEY (`userId`) REFERENCES `user`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `Cartitems` ADD CONSTRAINT `Cartitems_productId_fkey` FOREIGN KEY (`productId`) REFERENCES `Product`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;

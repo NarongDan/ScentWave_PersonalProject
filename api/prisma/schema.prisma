@@ -26,6 +26,8 @@ model User {
   updatedAt DateTime    @updatedAt @db.Timestamp(0)
   Bill      Bill[]
   Cartitems Cartitems[]
+
+  @@map("user")
 }
 
 model Bill {
